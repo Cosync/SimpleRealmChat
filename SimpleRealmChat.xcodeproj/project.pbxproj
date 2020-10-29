@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13D2F3135B7A2502956FEC05 /* Pods_SimpleRealmChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61A2C77424E3796EE298B3F /* Pods_SimpleRealmChat.framework */; };
 		56117274254604D8002F53FF /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56117273254604D8002F53FF /* ConnectionState.swift */; };
 		561172A02549A223002F53FF /* ChatRealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5611729F2549A223002F53FF /* ChatRealmManager.swift */; };
 		5636AECA252B95AC00110E9E /* SimpleRealmChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636AEC9252B95AC00110E9E /* SimpleRealmChatApp.swift */; };
@@ -50,6 +51,7 @@
 		56C2AEAB252BB1C5003301C6 /* ChatEntryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEntryState.swift; sourceTree = "<group>"; };
 		56C2AEAF252BB94E003301C6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		56C2AEB2252BB967003301C6 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		C61A2C77424E3796EE298B3F /* Pods_SimpleRealmChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleRealmChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13D2F3135B7A2502956FEC05 /* Pods_SimpleRealmChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +69,7 @@
 		1A16EC6F85B8C4245E022743 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C61A2C77424E3796EE298B3F /* Pods_SimpleRealmChat.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

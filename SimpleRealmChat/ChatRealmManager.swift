@@ -85,19 +85,16 @@ class ChatRealm {
             if  let user = RealmManager.shared.app.currentUser {
                 if let chatPartition = self.chatPartition {
                     Realm.asyncOpen(configuration: user.configuration(partitionValue: chatPartition),
-                    callback: { (maybeRealm, error) in
-                        guard error == nil else {
-                            completion(ChatError.openRealmFailed)
-                            return
-                        }
-                        guard let realm = maybeRealm else {
-                            completion(ChatError.RealmIsNill)
-                            return
-                        }
-                        // realm opened
-                        self.realm = realm
+                    callback: { result in
                         
-                        completion(nil)
+                        switch result {
+                        case .success(let realm):
+                            self.realm = realm
+                            completion(nil)
+                        case .failure( _):
+                            completion(ChatError.openRealmFailed)
+                        }
+                        
                     })
 
                 }
