@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		56117274254604D8002F53FF /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56117273254604D8002F53FF /* ConnectionState.swift */; };
+		561172A02549A223002F53FF /* ChatRealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5611729F2549A223002F53FF /* ChatRealmManager.swift */; };
+		5636AECA252B95AC00110E9E /* SimpleRealmChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636AEC9252B95AC00110E9E /* SimpleRealmChatApp.swift */; };
+		5636AECC252B95AC00110E9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636AECB252B95AC00110E9E /* ContentView.swift */; };
+		5636AECE252B95AE00110E9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5636AECD252B95AE00110E9E /* Assets.xcassets */; };
+		5636AED1252B95AE00110E9E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5636AED0252B95AE00110E9E /* Preview Assets.xcassets */; };
+		565F5BD62540B7A5000B0DCF /* UIAppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565F5BD52540B7A5000B0DCF /* UIAppExtension.swift */; };
+		569EAE062533EC7800958EE5 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569EAE052533EC7800958EE5 /* UserView.swift */; };
+		569EAE0A25361EA100958EE5 /* UserProfileState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569EAE0925361EA100958EE5 /* UserProfileState.swift */; };
+		56C2AE96252BA983003301C6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 56C2AE95252BA983003301C6 /* README.md */; };
+		56C2AE9A252BA9D8003301C6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2AE99252BA9D8003301C6 /* Constants.swift */; };
+		56C2AE9E252BB138003301C6 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2AE9D252BB138003301C6 /* RealmManager.swift */; };
+		56C2AEA1252BB15D003301C6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2AEA0252BB15D003301C6 /* Models.swift */; };
+		56C2AEA4252BB17F003301C6 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2AEA3252BB17E003301C6 /* AppState.swift */; };
+		56C2AEA9252BB19C003301C6 /* UserPrivateDataState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2AEA8252BB19C003301C6 /* UserPrivateDataState.swift */; };
+		56C2AEAC252BB1C5003301C6 /* ChatEntryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2AEAB252BB1C5003301C6 /* ChatEntryState.swift */; };
+		56C2AEB0252BB94E003301C6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2AEAF252BB94E003301C6 /* LoginView.swift */; };
+		56C2AEB3252BB967003301C6 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2AEB2252BB967003301C6 /* ChatView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		045C992C6B1C6CFAF687F4C9 /* Pods-SimpleRealmChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleRealmChat.debug.xcconfig"; path = "Target Support Files/Pods-SimpleRealmChat/Pods-SimpleRealmChat.debug.xcconfig"; sourceTree = "<group>"; };
+		16AB0CFD3517E535A63FC5BB /* Pods-SimpleRealmChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleRealmChat.release.xcconfig"; path = "Target Support Files/Pods-SimpleRealmChat/Pods-SimpleRealmChat.release.xcconfig"; sourceTree = "<group>"; };
+		56117273254604D8002F53FF /* ConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
+		5611729F2549A223002F53FF /* ChatRealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRealmManager.swift; sourceTree = "<group>"; };
+		5636AEC6252B95AC00110E9E /* SimpleRealmChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleRealmChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5636AEC9252B95AC00110E9E /* SimpleRealmChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRealmChatApp.swift; sourceTree = "<group>"; };
+		5636AECB252B95AC00110E9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5636AECD252B95AE00110E9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5636AED0252B95AE00110E9E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5636AED2252B95AE00110E9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		565F5BD52540B7A5000B0DCF /* UIAppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAppExtension.swift; sourceTree = "<group>"; };
+		569EAE052533EC7800958EE5 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		569EAE0925361EA100958EE5 /* UserProfileState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileState.swift; sourceTree = "<group>"; };
+		56C2AE95252BA983003301C6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		56C2AE99252BA9D8003301C6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		56C2AE9D252BB138003301C6 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		56C2AEA0252BB15D003301C6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		56C2AEA3252BB17E003301C6 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		56C2AEA8252BB19C003301C6 /* UserPrivateDataState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrivateDataState.swift; sourceTree = "<group>"; };
+		56C2AEAB252BB1C5003301C6 /* ChatEntryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEntryState.swift; sourceTree = "<group>"; };
+		56C2AEAF252BB94E003301C6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		56C2AEB2252BB967003301C6 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5636AEC3252B95AC00110E9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A16EC6F85B8C4245E022743 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5636AEBD252B95AC00110E9E = {
+			isa = PBXGroup;
+			children = (
+				5636AEC8252B95AC00110E9E /* SimpleRealmChat */,
+				5636AEC7252B95AC00110E9E /* Products */,
+				D32D2162548EF629C9852573 /* Pods */,
+				1A16EC6F85B8C4245E022743 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		5636AEC7252B95AC00110E9E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5636AEC6252B95AC00110E9E /* SimpleRealmChat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5636AEC8252B95AC00110E9E /* SimpleRealmChat */ = {
+			isa = PBXGroup;
+			children = (
+				56C2AE95252BA983003301C6 /* README.md */,
+				56C2AE99252BA9D8003301C6 /* Constants.swift */,
+				56C2AEA0252BB15D003301C6 /* Models.swift */,
+				565F5BD52540B7A5000B0DCF /* UIAppExtension.swift */,
+				56C2AEA3252BB17E003301C6 /* AppState.swift */,
+				56C2AEAB252BB1C5003301C6 /* ChatEntryState.swift */,
+				569EAE0925361EA100958EE5 /* UserProfileState.swift */,
+				56C2AEA8252BB19C003301C6 /* UserPrivateDataState.swift */,
+				56117273254604D8002F53FF /* ConnectionState.swift */,
+				5636AEC9252B95AC00110E9E /* SimpleRealmChatApp.swift */,
+				5636AECB252B95AC00110E9E /* ContentView.swift */,
+				56C2AEAF252BB94E003301C6 /* LoginView.swift */,
+				569EAE052533EC7800958EE5 /* UserView.swift */,
+				56C2AEB2252BB967003301C6 /* ChatView.swift */,
+				56C2AE9D252BB138003301C6 /* RealmManager.swift */,
+				5611729F2549A223002F53FF /* ChatRealmManager.swift */,
+				5636AECD252B95AE00110E9E /* Assets.xcassets */,
+				5636AED2252B95AE00110E9E /* Info.plist */,
+				5636AECF252B95AE00110E9E /* Preview Content */,
+			);
+			path = SimpleRealmChat;
+			sourceTree = "<group>";
+		};
+		5636AECF252B95AE00110E9E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5636AED0252B95AE00110E9E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D32D2162548EF629C9852573 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				045C992C6B1C6CFAF687F4C9 /* Pods-SimpleRealmChat.debug.xcconfig */,
+				16AB0CFD3517E535A63FC5BB /* Pods-SimpleRealmChat.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5636AEC5252B95AC00110E9E /* SimpleRealmChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5636AED5252B95AE00110E9E /* Build configuration list for PBXNativeTarget "SimpleRealmChat" */;
+			buildPhases = (
+				159E741BE5CB00DFCD630E00 /* [CP] Check Pods Manifest.lock */,
+				5636AEC2252B95AC00110E9E /* Sources */,
+				5636AEC3252B95AC00110E9E /* Frameworks */,
+				5636AEC4252B95AC00110E9E /* Resources */,
+				FB662A7B39648E985F370EB9 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SimpleRealmChat;
+			productName = SimpleRealmChat;
+			productReference = 5636AEC6252B95AC00110E9E /* SimpleRealmChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5636AEBE252B95AC00110E9E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					5636AEC5252B95AC00110E9E = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 5636AEC1252B95AC00110E9E /* Build configuration list for PBXProject "SimpleRealmChat" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5636AEBD252B95AC00110E9E;
+			productRefGroup = 5636AEC7252B95AC00110E9E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5636AEC5252B95AC00110E9E /* SimpleRealmChat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5636AEC4252B95AC00110E9E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56C2AE96252BA983003301C6 /* README.md in Resources */,
+				5636AED1252B95AE00110E9E /* Preview Assets.xcassets in Resources */,
+				5636AECE252B95AE00110E9E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		159E741BE5CB00DFCD630E00 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SimpleRealmChat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB662A7B39648E985F370EB9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SimpleRealmChat/Pods-SimpleRealmChat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SimpleRealmChat/Pods-SimpleRealmChat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SimpleRealmChat/Pods-SimpleRealmChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5636AEC2252B95AC00110E9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				569EAE062533EC7800958EE5 /* UserView.swift in Sources */,
+				5636AECC252B95AC00110E9E /* ContentView.swift in Sources */,
+				56C2AE9E252BB138003301C6 /* RealmManager.swift in Sources */,
+				56C2AEB3252BB967003301C6 /* ChatView.swift in Sources */,
+				5636AECA252B95AC00110E9E /* SimpleRealmChatApp.swift in Sources */,
+				56C2AEB0252BB94E003301C6 /* LoginView.swift in Sources */,
+				561172A02549A223002F53FF /* ChatRealmManager.swift in Sources */,
+				565F5BD62540B7A5000B0DCF /* UIAppExtension.swift in Sources */,
+				56C2AEA9252BB19C003301C6 /* UserPrivateDataState.swift in Sources */,
+				56C2AEAC252BB1C5003301C6 /* ChatEntryState.swift in Sources */,
+				56117274254604D8002F53FF /* ConnectionState.swift in Sources */,
+				569EAE0A25361EA100958EE5 /* UserProfileState.swift in Sources */,
+				56C2AEA4252BB17F003301C6 /* AppState.swift in Sources */,
+				56C2AE9A252BA9D8003301C6 /* Constants.swift in Sources */,
+				56C2AEA1252BB15D003301C6 /* Models.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5636AED3252B95AE00110E9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5636AED4252B95AE00110E9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5636AED6252B95AE00110E9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 045C992C6B1C6CFAF687F4C9 /* Pods-SimpleRealmChat.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"SimpleRealmChat/Preview Content\"";
+				DEVELOPMENT_TEAM = WQQLK89MX8;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = SimpleRealmChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cosync.io.SimpleRealmChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5636AED7252B95AE00110E9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16AB0CFD3517E535A63FC5BB /* Pods-SimpleRealmChat.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"SimpleRealmChat/Preview Content\"";
+				DEVELOPMENT_TEAM = WQQLK89MX8;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = SimpleRealmChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cosync.io.SimpleRealmChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5636AEC1252B95AC00110E9E /* Build configuration list for PBXProject "SimpleRealmChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5636AED3252B95AE00110E9E /* Debug */,
+				5636AED4252B95AE00110E9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5636AED5252B95AE00110E9E /* Build configuration list for PBXNativeTarget "SimpleRealmChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5636AED6252B95AE00110E9E /* Debug */,
+				5636AED7252B95AE00110E9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5636AEBE252B95AC00110E9E /* Project object */;
+}
