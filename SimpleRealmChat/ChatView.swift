@@ -30,27 +30,31 @@ struct ChatView: View {
         NavigationView {
             ZStack {
                 VStack(spacing: 25) {
+                    
+                    ScrollView {
+                        
+                        LazyVStack(alignment: .leading, spacing: 5) {
 
-                    List {
+                            ForEach(0..<self.chatEntryState.count, id: \.self) { index in
+                                VStack(alignment: .leading) {
+                                    Text(self.chatEntryState.chatEntryName(index))
+                                        .foregroundColor(.gray)
+                                        .font(Font.caption)
+                                        .padding(.bottom)
+                                    Text(self.chatEntryState.chatEntryText(index)).font(Font.title)
+                                }
+                                .padding()
+                                .rotationEffect(.radians(.pi))
+                                .scaleEffect(x: -1, y: 1, anchor: .center)
 
-                        ForEach(0..<self.chatEntryState.count, id: \.self) { index in
-                            VStack(alignment: .leading) {
-                                Text(self.chatEntryState.chatEntryName(index))
-                                    .foregroundColor(.gray)
-                                    .font(Font.caption)
-                                    .padding(.bottom)
-                                Text(self.chatEntryState.chatEntryText(index)).font(Font.title)
                             }
-                            .padding()
-                            .rotationEffect(.radians(.pi))
-                            .scaleEffect(x: -1, y: 1, anchor: .center)
-
                         }
-
                     }
                     .rotationEffect(.radians(.pi))
                     .scaleEffect(x: -1, y: 1, anchor: .center)
 
+                    
+                    
                    // Spacer()
                     HStack(spacing: 10) {
                         TextField("Type a message", text: $chatText, onCommit: {
