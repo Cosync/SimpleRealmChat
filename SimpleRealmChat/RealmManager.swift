@@ -59,6 +59,8 @@ class RealmManager {
                     self.initRealms(onCompletion: { (err) in
                         completion(err)
                     })
+                    
+                    
                 }
             case .failure(let error):
                 completion(error)

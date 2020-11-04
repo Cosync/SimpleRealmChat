@@ -1,4 +1,6 @@
 # SimpleRealmChat
+
+## Instalation
 Super Simple Chat app for MongoDB Realm
 
 On the MongoDB Atlas side
@@ -51,9 +53,146 @@ XCode Project
 Run the app
 
 
-Functions
+## Partition Strategy
 
-onUpdateUserPrivateData
+### User Partition
+
+Each user has a private partition where the partition value is the user-id of the user. Only the user can readwrite to the user partition
+
+```
+{ "%%user.id": "%%partition" }
+```
+
+### Shared Partition
+
+There is a common shared partition called "shared". All users have read permission on the shared partition, but cannot write to it.
+
+```
+{ "shared": "%%partition" }
+```
+
+### Chat Partitions
+
+If two users (uid1 and uid2) are chatting, the chat entires are stored in a chat partition uid1_uid2 where uid1 < uid2.
+
+## Custom Data
+
+Enable Custom Data for the application under the `Custom User Data` tab of `App Users` in the MongoDB Realm portal. First create a Custom User database and Custom User collection in Atlas.
+
+* CustomUserDB (data base name)
+* CustomUserData (collection name)
+
+After the database and collection are created, then enable custom data for the Application in the MongoDB Realm portal.
+Make sure that you choose `userId` as the User ID field. 
+
+In the `Rules` section DO NOT configure the `CustomUserData` collection by choosing a Permissions Template. If no rule exists for the namespace `CustomUserDB.CustomUserData`, the collection will not be writable from within the client application. This is what you want, so that no client can spoof the Custom Data and potentially violate security. This way, the Custom Data is readable by the client but no more than that. The backend server function `onUpdateConnection` will take care of writing to the Custom Data collection. 
+
+## Sync Rules
+
+For the read sync rules you want to use the following
+
+```
+{
+  "$or": [
+    {
+      "%%user.id": "%%partition"
+    },
+    {
+      "%%partition": "shared"
+    },
+    {
+      "%%user.custom_data.chatPartitions": "%%partition"
+    }
+  ]
+}
+```
+For the write sync rules you want to use the following
+
+```
+{
+  "$or": [
+    {
+      "%%user.id": "%%partition"
+    },
+    {
+      "%%user.custom_data.chatPartitions": "%%partition"
+    }
+  ]
+}
+```
+
+## Functions
+
+### updateChatPartitions
+
+Name: updateChatPartitions
+Authentication: System
+
+Note: the Authentication has to run as a system user otherwise custom user data cannot be written to.
+
+```javascript
+exports = async function(currentUserId, friendUserId) {
+  
+  const mongodb = context.services.get("mongodb-atlas");
+  const users = mongodb.db("CustomUserDB").collection("CustomUserData");
+  let user = await users.findOne({userId: currentUserId});
+  let friendUser = await users.findOne({userId: friendUserId});
+  
+  var chatPartition = currentUserId + "_" + friendUserId;
+  if (currentUserId > friendUserId) {
+      chatPartition = friendUserId + "_" + currentUserId;
+  }
+        
+  var userChatPartitions = { "$push": {
+      "chatPartitions": chatPartition
+      }
+  };       
+  users.updateOne({_id: user._id}, userChatPartitions, {upsert: false});      
+
+  var friendUserChatPartitions = { "$push": {
+      "chatPartitions" : chatPartition
+      }
+  };
+  users.updateOne({_id: friendUser._id}, friendUserChatPartitions, {upsert: false});
+  
+  return chatPartition;
+};
+```
+
+## Triggers
+
+### signupTrigger 
+
+`Trigger Type`: Authentication
+`Name`: signupTrigger
+`Action Type`: Create
+`Provider(s)`: Email/Password
+`Select an Event Type`: Function
+`Function`: signupTrigger
+
+```javascript
+exports = function(authEvent) {
+   
+  const user = authEvent.user
+  console.log("authEvent.user ", JSON.stringify(user)); 
+  
+  const mongodb = context.services.get("mongodb-atlas");
+  const users = mongodb.db("CustomUserDB").collection("CustomUserData");
+  
+  var newUser = { userId: user.id, chatPartitions: []};
+  users.updateOne({userId: user.id}, newUser, {upsert: true});
+};
+```
+
+### onUpdateUserPrivateData
+
+`Trigger Type`: Database
+`Name`: onUpdateUserPrivateData
+`Cluster Name`: mongodb-atlas
+`Database Name`: SimpleRealmChatDB
+`Collection Name`: UserPrivateData
+`Operation Type`: Insert and Replace
+`Function`: onUpdateUserPrivateData
 
 ```javascript
 exports = function(changeEvent) {
@@ -73,7 +212,15 @@ exports = function(changeEvent) {
 };
 ```
 
-onUpdateConnection
+### onUpdateConnection
+
+`Trigger Type`: Database
+`Name`: onUpdateUserPrivateData
+`Cluster Name`: mongodb-atlas
+`Database Name`: SimpleRealmChatDB
+`Collection Name`: Connection
+`Operation Type`: Insert and Replace
+`Function`: onUpdateConnection
 
 ```javascript
 exports = function(changeEvent) {
@@ -83,11 +230,13 @@ exports = function(changeEvent) {
     const connections = mongodb.db("SimpleRealmChatDB").collection("Connection");
     
     if (!changeEvent.fullDocument.active) {
-    
-        console.log("Got here");
+      
+        let currentUserId = changeEvent.fullDocument._partition;
+        let friendUserId = changeEvent.fullDocument.friendUid;
+
         var friendConnection = { "_id": new BSON.ObjectId(),
-            "_partition": changeEvent.fullDocument.friendUid,
-            "friendUid": changeEvent.fullDocument._partition,
+            "_partition": friendUserId,
+            "friendUid": currentUserId,
             "active": true
         };
         
@@ -97,9 +246,9 @@ exports = function(changeEvent) {
         };
     
         connections.updateOne({_id: friendConnection._id}, friendConnection, {upsert: true});
-        
         connections.updateOne({_id: changeEvent.fullDocument._id}, connection, {upsert: false});
     }
 
 };
 ```
+

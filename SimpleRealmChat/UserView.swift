@@ -23,24 +23,63 @@ struct UserRow: View {
             Spacer()
             Button(action: {
                 
-                ChatRealmManager.shared.setCurrentChat(friendUid: self.user.id) { error in
-                    
-                    self.chatEntryState.setup()
-                    
-                    if (connectionState.connection(friendUid: self.user.id) == nil) {
-                        let uid = RealmManager.shared.currentUserId!
-                        
-                        let connection = Connection(uid: uid, friendUid: self.user.id)
-                        try! RealmManager.shared.userRealm.write {
-
-                            RealmManager.shared.userRealm.add(connection)
+                let uid = RealmManager.shared.currentUserId!
+                
+                if (connectionState.connection(friendUid: self.user.id) == nil) {
+                
+                    let user = RealmManager.shared.app.currentUser!
+                    user.functions.updateChatPartitions([.string(uid), .string(self.user.id)]) { chatPartition, error in
+                        guard error == nil else {
+                            print("Function call failed: \(error!.localizedDescription)")
+                            return
                         }
+                        guard case let .string(value) = chatPartition else {
+                            print("Unexpected non-string result: \(chatPartition ?? "nil")");
+                            return
+                        }
+                        print("Called function 'sum' and got result: \(value)")
+                        
+                        DispatchQueue.main.async {
+                            let connection = Connection(uid: uid, friendUid: self.user.id)
+                            try! RealmManager.shared.userRealm.write {
 
+                                RealmManager.shared.userRealm.add(connection)
+                            }
+                            
+                            if  let user = RealmManager.shared.app.currentUser {
+                                
+                                user.refreshCustomData() { (customData, error) in
+                                    if error == nil {
+                                        
+                                        ChatRealmManager.shared.setCurrentChat(friendUid: self.user.id) { error in
+                                            self.chatEntryState.setup()
+                                            self.appState.target = .chat
+                                        }
+                                        
+                                    }
+
+                                }
+                            }
+                        }
                     }
-                    
-                    self.appState.target = .chat
+                } else {
+                    if  let user = RealmManager.shared.app.currentUser {
+                        
+                        user.refreshCustomData() { (customData, error) in
+                            if error == nil {
+                                DispatchQueue.main.async {
+                                    ChatRealmManager.shared.setCurrentChat(friendUid: self.user.id) { error in
+                                        self.chatEntryState.setup()
+                                        self.appState.target = .chat
+                                    }
+                                }
+                            }
+
+                        }
+                    }
                 }
-            
+                
+
                 
             }) {
                 Image(systemName: "arrowtriangle.right")

@@ -31,6 +31,7 @@ enum ChatError: Error {
     case RealmIsNill
     case invalidPartitionValue
     case userNotLoggedIn
+    case customData
 
     var message: String {
         switch self {
@@ -42,6 +43,8 @@ enum ChatError: Error {
             return "invalid partition value for chat Realm"
         case .userNotLoggedIn:
             return "user is not logged in"
+        case .customData:
+            return "Failed to refresh custom data"
         }
     }
 }
@@ -83,24 +86,32 @@ class ChatRealm {
             completion(nil)
         } else {
             if  let user = RealmManager.shared.app.currentUser {
-                if let chatPartition = self.chatPartition {
-                    Realm.asyncOpen(configuration: user.configuration(partitionValue: chatPartition),
-                    callback: { result in
-                        
-                        switch result {
-                        case .success(let realm):
-                            self.realm = realm
-                            completion(nil)
-                        case .failure( _):
-                            completion(ChatError.openRealmFailed)
-                        }
-                        
-                    })
+                
+                user.refreshCustomData() { (customData, error) in
+                    guard error == nil else {
+                        completion(ChatError.customData)
+                        return
+                    }
+                    if let chatPartition = self.chatPartition {
+                        Realm.asyncOpen(configuration: user.configuration(partitionValue: chatPartition),
+                        callback: { result in
+                            
+                            switch result {
+                            case .success(let realm):
+                                self.realm = realm
+                                completion(nil)
+                            case .failure( _):
+                                completion(ChatError.openRealmFailed)
+                            }
+                            
+                        })
 
+                    }
+                    else {
+                        completion(ChatError.invalidPartitionValue)
+                    }
                 }
-                else {
-                    completion(ChatError.invalidPartitionValue)
-                }
+
             } else {
                 completion(ChatError.userNotLoggedIn)
             }
