@@ -36,7 +36,7 @@ struct LoginTab: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            Text("Sample Realm Chat")
+            Text("Simple Realm Chat")
                 .font(.largeTitle)
             
             Divider()
@@ -94,7 +94,7 @@ struct SignupTab: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            Text("Sample Realm Chat")
+            Text("Simple Realm Chat")
                 .font(.largeTitle)
             
             Divider()
