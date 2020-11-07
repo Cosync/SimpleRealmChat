@@ -33,6 +33,12 @@ struct LoginTab: View {
     @EnvironmentObject var userProfileState: UserProfileState
     @EnvironmentObject var chatEntryState: ChatEntryState
     @EnvironmentObject var connectionState: ConnectionState
+    @State private var message: AlertMessage? = nil
+    
+    func showLoginInvalidParameters(){
+        self.message = AlertMessage(title: "Login Failed", message: "You have entered an invalid handle or password.", target: .login, state: self.appState)
+    }
+    
     var body: some View {
         VStack(spacing: 20) {
             
@@ -60,11 +66,15 @@ struct LoginTab: View {
             Button(action: {
                 RealmManager.shared.login(self.email, password: self.password, onCompletion: { (error) in
                         DispatchQueue.main.async {
-                            NSLog("Login success")
-                            self.userPrivateDataState.setup()
-                            self.userProfileState.setup()
-                            self.connectionState.setup()
-                            self.appState.target = .user
+                            if error != nil {
+                                self.showLoginInvalidParameters()
+                            } else {
+                                NSLog("Login success")
+                                self.userPrivateDataState.setup()
+                                self.userProfileState.setup()
+                                self.connectionState.setup()
+                                self.appState.target = .user
+                            }
                         }
                     }
                 )
@@ -79,6 +89,9 @@ struct LoginTab: View {
             .cornerRadius(8)
 
         }.font(.title)
+        .alert(item: $message) { message in
+            Alert(message)
+        }
     }
 }
 
@@ -91,6 +104,13 @@ struct SignupTab: View {
     @EnvironmentObject var userProfileState: UserProfileState
     @EnvironmentObject var chatEntryState: ChatEntryState
     @EnvironmentObject var connectionState: ConnectionState
+    @State private var message: AlertMessage? = nil
+    
+    func showSignupInvalidParameters(){
+        self.message = AlertMessage(title: "Signup Failed", message: "You have entered an invalid handle or password.", target: .login, state: self.appState)
+    }
+    
+    
     var body: some View {
         VStack(spacing: 20) {
             
@@ -122,11 +142,16 @@ struct SignupTab: View {
             Button(action: {
                 RealmManager.shared.signup(self.email, password: self.password, name: self.name, onCompletion: { (error) in
                         DispatchQueue.main.async {
-                            NSLog("Login success")
-                            self.userPrivateDataState.setup()
-                            self.userProfileState.setup()
-                            self.connectionState.setup()
-                            self.appState.target = .user
+                            if error != nil {
+                                self.showSignupInvalidParameters()
+                            } else {
+                                NSLog("Signup success")
+                                self.userPrivateDataState.setup()
+                                self.userProfileState.setup()
+                                self.connectionState.setup()
+                                self.appState.target = .user
+                            }
+
                         }
                     }
                 )
@@ -141,6 +166,9 @@ struct SignupTab: View {
             .cornerRadius(8)
 
         }.font(.title)
+        .alert(item: $message) { message in
+            Alert(message)
+        }
     }
 }
 
