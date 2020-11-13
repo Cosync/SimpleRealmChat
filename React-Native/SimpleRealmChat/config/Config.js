@@ -1,7 +1,8 @@
 exports.Realm = {
-    appId: 'supersimplechat-nvwlr',
-    //appId: 'application-0-ffolc',
-    partition: 'chat',
-    chatTable: 'ChatEntry',
-    userData: 'UserData'
+    appId: 'simple-realm-chat-nehcp',
+    publicPartition: 'shared',
+    chatEntry: 'ChatEntry',
+    userProfile: 'UserProfile',
+    userPrivateData: 'UserPrivateData',
+    connection:'Connection'
 }

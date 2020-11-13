@@ -85,7 +85,7 @@ const Register = props => {
         RealmLib.login(userEmail, userPassword).then(user => {
           AsyncStorage.setItem('user_id', user.id);  
 
-          createProfile(userDisplayName).then(res => {
+          createProfile(userDisplayName, userEmail).then(res => {
             props.navigation.navigate('DrawerNavigationRoutes'); 
           });
 
@@ -103,7 +103,7 @@ const Register = props => {
   };
 
 
-  const createProfile = (name) => {
+  const createProfile = (name, email) => {
 
     return new Promise((resolve, reject) => { 
 
@@ -112,13 +112,14 @@ const Register = props => {
           _id: new ObjectId(),
           _partition: `${global.user.id}`,
           name: name, 
-          uid: global.user.id
+          email: email,
+          createdAt: new Date().toISOString()
         }; 
 
         global.userData = userData;
 
         global.privateRealm.write(() => { 
-          global.privateRealm.create(Configure.Realm.userData, userData); 
+          global.privateRealm.create(Configure.Realm.userPrivateData, userData); 
           resolve(true)
         })
 

@@ -66,7 +66,7 @@ const LoginScreen = props => {
       RealmLib.openRealm().then(result => {
         setLoading(false);  
        
-        let userData = result.privateRealm.objects(Configure.Realm.userData).filtered(`uid = '${global.user.id}'`); 
+        let userData = result.privateRealm.objects(Configure.Realm.userProfile).filtered(`uid = '${global.user.id}'`); 
         global.userData = userData[0]; 
         props.navigation.navigate('DrawerNavigationRoutes'); 
       }).catch(err => {

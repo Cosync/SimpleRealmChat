@@ -84,7 +84,7 @@ export const openRealm = () => {
 
 
     let configPublic = {
-        schema:  [Schema.ChatEntry],
+        schema:  [Schema.ChatEntry, Schema.UserProfile],
         sync: {
           user: global.user,
           partitionValue: "chat"
@@ -92,7 +92,7 @@ export const openRealm = () => {
       }; 
 
       let configPrivate = {
-        schema: [Schema.UserData],
+        schema: [Schema.UserPrivateData, Schema.Connection],
         sync: {
           user: global.user,
           partitionValue: `${global.user.id}`
