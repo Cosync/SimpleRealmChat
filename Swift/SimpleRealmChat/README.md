@@ -215,7 +215,7 @@ exports = function(changeEvent) {
 ### onUpdateConnection
 
 `Trigger Type`: Database
-`Name`: onUpdateUserPrivateData
+`Name`: onUpdateConnection
 `Cluster Name`: mongodb-atlas
 `Database Name`: SimpleRealmChatDB
 `Collection Name`: Connection
