@@ -61,7 +61,7 @@ const CustomSidebarMenu = props => {
       
     }
 
-    if(global.userData) setUserName(global.userData.name);
+    if(global.userProfile) setUserName(global.userProfile.name);
      
   };
 

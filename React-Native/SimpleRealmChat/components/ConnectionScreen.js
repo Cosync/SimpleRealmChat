@@ -2,87 +2,66 @@
 /* https://aboutreact.com/react-native-login-and-signup/ */
 
 //Import React
-import React from 'react';
+import React, {useState} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 //Import all required component
 import { View, TextInput, TouchableOpacity, StyleSheet, FlatList, Text } from 'react-native';
 import Configure from '../config/Config'; 
 import * as RealmLib from '../libs/RealmLib'; 
+import Loader from './Loader'; 
+import ListItem from './ListItem';
 
 const ConnectionScreen = props => {
 
   global.currentScreenIndex = 'ConnectionScreen';
+  let [loading, setLoading] = React.useState(true);
+  let [profiles, setProfileItem] = React.useState([]); 
   
-  const [profiles, setProfileItem] = React.useState([
-    {
-      id: '1',
-      _id: '1',
-      name: 'name 1'
-    },
-    {
-      id: '2',
-      _id: '2',
-      name: 'name 2'
-    },
-    {
-      id: '3',
-      _id: '3',
-      name: 'name 3'
-    },
-    {
-      id: '4',
-      _id: '4',
-      name: 'name 4'
-    },
-    { id: '5',
-      _id: '5',
-      name: 'name 5'
-    },
-  ]); 
- 
+  React.useEffect(() => {
 
-  RealmLib.openRealm().then(result => {
    
-    // let userProfile = result.realm.objects(Configure.Realm.userProfile).filtered(`_id != '${global.user.id}'`);
+    async function fetchData(){
 
-    // let list = [];
-    // userProfile.forEach(element => {
-    //   list.push({
-    //     _id: element._id,
-    //     name: element.name
-    //   })
-    // });
-    // setProfileItem(list);
+      let result = await RealmLib.openRealm();
 
-    //alert('ConnectionScreen open realm');
-   
-   
-  }).catch(err => {
-    alert('ConnectionScreen err ', err.message);
-  })
+      let userProfile = await result.realm.objects(Configure.Realm.userProfile);//.filtered(`_id != '${global.user.id}'`);
+      let list = [];
+      userProfile.forEach(element => {  
+        if(element._id == global.user.id) global.userProfile = element;
+        else{ 
+          list.push({
+            id: element._id,
+            _id: element._id,
+            name: element.name
+          })
+        }
+      });
 
-    
-    
-    // let [user_id, setUserId] = React.useState('');
-
-    // let [user_email, setUserEmail] = React.useState('');
-
-    // AsyncStorage.getItem('user_id').then(id =>{
-    //     setUserId(id); 
-    // })
-
-    // AsyncStorage.getItem('user_email').then(email =>{ 
-    //     setUserEmail(email); 
-    // })
-
-    const handleSubmitPress = () => {
-       
-        props.navigation.navigate('ChatScreen') 
+      setProfileItem(list);
+      
+      setLoading(false);  
     }
+    
+    setLoading(true);  
+    fetchData();
+
+  }, [])
+   
+
+   
+
+  const profileClicked = (item) => {
+   
+    global.currentProfile = item;
+    props.navigation.navigate('ChatScreen') 
+  }
  
 
   return (
     <View style={styles.mainBody}>
+
+      <Loader loading={loading} />
+
         <View style={styles.SectionStyle}> 
         
               <TextInput
@@ -97,13 +76,11 @@ const ConnectionScreen = props => {
         </View>
         <FlatList 
           data = {profiles} 
-          renderItem={({item}) => (
-            <TouchableOpacity style={styles.listItem}>
-              <View style={styles.listItemView}>
-                <Text>{item.name}</Text>
-              </View>
-               
-            </TouchableOpacity>
+          renderItem={({item}) => ( 
+            <ListItem
+            item={item}  
+            itemClicked = {profileClicked}
+          />
            
           )} 
                

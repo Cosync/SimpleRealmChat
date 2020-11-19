@@ -126,3 +126,32 @@ export const openRealm = () => {
 
 
 
+export const openRealmChat = (chatPartition) => {
+
+  return new Promise((resolve, reject) => { 
+
+    let config = {
+        schema:  [Schema.ChatEntry],
+        sync: {
+          user: global.user,
+          partitionValue: chatPartition
+        }
+      }; 
+
+    try {
+
+      Realm.open(config).then(realm => { 
+        resolve(realm); 
+      }).catch(err => {
+        reject(err);
+      })
+      
+    } catch (error) { 
+      reject(error);
+    }
+    
+  })
+}
+
+
+
