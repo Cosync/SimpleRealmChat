@@ -87,7 +87,7 @@ export const openRealm = () => {
         schema:  [Schema.ChatEntry, Schema.UserProfile],
         sync: {
           user: global.user,
-          partitionValue: "chat"
+          partitionValue: Configure.Realm.publicPartition
         }
       }; 
 

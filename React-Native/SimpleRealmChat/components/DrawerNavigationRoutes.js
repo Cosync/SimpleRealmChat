@@ -6,6 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
 //Import External Screens
+import ConnectionScreen from './ConnectionScreen';
 import HomeScreen from './HomeScreen';
 import ChatScreen from './ChatScreen';  
 import CustomSidebarMenu from './CustomSidebarMenu';
@@ -13,9 +14,9 @@ import NavigationDrawerHeader from './NavigationDrawerHeader';
 
 const FirstActivity_StackNavigator = createStackNavigator({
   First: {
-    screen: HomeScreen,
+    screen: ConnectionScreen,
     navigationOptions: ({ navigation }) => ({
-      title: 'Home Screen',
+      title: 'Connection Screen',
       headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#307ecc',
@@ -44,10 +45,10 @@ const SecondActivity_StackNavigator = createStackNavigator({
 
 const DrawerNavigatorRoutes = createDrawerNavigator(
   {
-    HomeScreen: {
+    ConnectionScreen: {
       screen: FirstActivity_StackNavigator,
       navigationOptions: {
-        drawerLabel: 'Home Screen',
+        drawerLabel: 'Connection Screen',
       },
     },
     ChatScreen: {

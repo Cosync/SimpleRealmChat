@@ -1,5 +1,5 @@
 exports.Realm = {
-    appId: 'simple-realm-chat-nehcp',
+    appId: 'application-0-hgtal',
     publicPartition: 'shared',
     chatEntry: 'ChatEntry',
     userProfile: 'UserProfile',

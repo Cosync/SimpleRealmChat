@@ -9,7 +9,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const HomeScreen = props => {
 
-
+    alert('Home');
     global.currentScreenIndex = 'HomeScreen';
     let [user_id, setUserId] = React.useState('');
 
