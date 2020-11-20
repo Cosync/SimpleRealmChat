@@ -43,16 +43,7 @@ const ConnectionScreen = props => {
 
       setProfileItem(list);
 
-      listConnection = await result.privateRealm.objects(Configure.Realm.connection);
-      
-      // allConns.forEach(conn => {  
-      //   if(conn._partition == global.user.id) { 
-      //     listConnection.push(conn);
-      //   }
-      // });
-      
-
-     
+      listConnection = await result.privateRealm.objects(Configure.Realm.connection); 
       
       setLoading(false);  
     }
