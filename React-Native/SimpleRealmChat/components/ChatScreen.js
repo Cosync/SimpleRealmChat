@@ -7,7 +7,7 @@ import { ObjectId } from 'bson';
 import AsyncStorage from '@react-native-community/async-storage';
 import Configure from '../config/Config'; 
 import * as RealmLib from '../libs/RealmLib'; 
-let chatPartition;
+let chatPartition, chatRealm;
 
 const ChatScreen = props => {
 
@@ -45,7 +45,9 @@ const ChatScreen = props => {
           chatPartition = global.currentProfile._id + "_" + global.user.id;
       }
 
-      global.realmChat = await RealmLib.openRealmChat(chatPartition);
+      if(chatRealm) chatRealm.removeAllListeners(); 
+
+      chatRealm = await RealmLib.openRealmChat(chatPartition);
 
       // if(!global.userProfile || global.userProfile.name){
       //   let userProfile = global.privateRealm.objects(Configure.Realm.userProfile).filtered(`_id = '${global.user.id}'`); 
@@ -54,9 +56,11 @@ const ChatScreen = props => {
       // }
       // else setUserName(global.userProfile.name);
 
-      global.realmChat.removeAllListeners(); 
+      chatRealm.removeAllListeners(); 
 
-      const results = global.realmChat.objects(Configure.Realm.chatEntry); 
+      const results = chatRealm.objects(Configure.Realm.chatEntry); 
+      results.removeListener(eventListener);
+      
       let chatEntryList =  results.sorted("createdAt", true); 
       results.addListener(eventListener);  
 
@@ -77,8 +81,8 @@ const ChatScreen = props => {
   
     let item = messages[0]; 
 
-    global.realmChat.write(() => { 
-      global.realmChat.create(Configure.Realm.chatEntry, 
+    chatRealm.write(() => { 
+      chatRealm.create(Configure.Realm.chatEntry, 
         { 
           _id: new ObjectId(),
           _partition:  chatPartition,
@@ -100,6 +104,7 @@ const ChatScreen = props => {
     // Update UI in response to inserted objects
     changes.insertions.forEach((index) => { 
       let item = itemList[index]; 
+      //alert(item.text)
       if(item.uid != global.user.id) setMessages(previousMessages => GiftedChat.append(previousMessages, formatTextMessage(item)))
       
     });

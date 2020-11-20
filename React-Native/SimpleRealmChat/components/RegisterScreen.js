@@ -27,6 +27,8 @@ const Register = props => {
   const ref_input_email = useRef();
   const ref_input_pwd = useRef(); 
 
+  global.realm = null;
+  global.privateRealm = null;
    
 
   const validateEmail = (text) => {
