@@ -3,13 +3,14 @@
 
 //Import React
 import React, {useState} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import { ObjectId } from 'bson';
 //Import all required component
 import { View, TextInput, TouchableOpacity, StyleSheet, FlatList, Text } from 'react-native';
 import Configure from '../config/Config'; 
 import * as RealmLib from '../libs/RealmLib'; 
 import Loader from './Loader'; 
 import ListItem from './ListItem';
+let listConnection = [];
 
 const ConnectionScreen = props => {
 
@@ -37,6 +38,15 @@ const ConnectionScreen = props => {
         }
       });
 
+      let userConnections = await result.privateRealm.objects(Configure.Realm.connection);
+      
+      userConnections.forEach(conn => {  
+        if(conn._partition == global.user.id) { 
+          listConnection.push(conn);
+        }
+      });
+      
+
       setProfileItem(list);
       
       setLoading(false);  
@@ -50,17 +60,40 @@ const ConnectionScreen = props => {
 
    
 
-  const profileClicked = (item) => {
-   
+  const profileClicked = async (item) => {
+    setLoading(true);  
     global.currentProfile = item;
-    props.navigation.navigate('ChatScreen') 
+
+    let conn = listConnection.filter(element => element.friendUid == item._id);
+    if(conn && conn.friendUid) props.navigation.navigate('ChatScreen');
+    else{
+      let result = await global.user.functions.updateChatPartitions( global.user.id, item._id); 
+      global.privateRealm.write(() => { 
+        let conn = { 
+          _id: new ObjectId(),
+          _partition:  global.user.id,
+          friendUid: item._id, 
+          active: true,
+          createdAt: new Date().toISOString()
+        };
+        listConnection.push(conn);
+        global.privateRealm.create(Configure.Realm.connection, conn); 
+      }); 
+      setLoading(false);  
+      props.navigation.navigate('ChatScreen');
+    }
+    
   }
  
 
   return (
+   
+
     <View style={styles.mainBody}>
 
-      <Loader loading={loading} />
+      <View>
+        <Loader loading={loading} />
+      </View>
 
         <View style={styles.SectionStyle}> 
         

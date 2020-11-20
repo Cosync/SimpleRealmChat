@@ -80,13 +80,13 @@ const Register = props => {
     RealmLib.signup(userEmail, userPassword).then(result => {
 
       if(result === true){
-        setInfotext('Your account has been created. Logging in to the app now.');
+       
 
         RealmLib.login(userEmail, userPassword).then(user => {
           AsyncStorage.setItem('user_id', user.id);  
 
           createProfile(userDisplayName, userEmail).then(res => {
-            props.navigation.navigate('DrawerNavigationRoutes'); 
+            
           });
 
         }).catch(err => {
@@ -106,8 +106,13 @@ const Register = props => {
   const createProfile = (name, email) => {
 
     return new Promise((resolve, reject) => { 
+      setInfotext('Creating your profile...');
 
       RealmLib.openRealm().then(realm => { 
+
+
+        listenUserProfile();
+
         let userPrivateData = { 
           _id: global.user.id,
           _partition: `${global.user.id}`,
@@ -118,8 +123,10 @@ const Register = props => {
 
         global.privateRealm.write(() => { 
           global.privateRealm.create(Configure.Realm.userPrivateData, userPrivateData); 
-          resolve(true)
+          
         })
+        
+        
 
       }).catch(err => {
         setErrortext(`Error: ${err.message}`);
@@ -127,6 +134,18 @@ const Register = props => {
     })
   }
 
+  const listenUserProfile = () => {
+
+    const result = global.realm.objects(Configure.Realm.userProfile).filtered(`_id == '${global.user.id}'`); 
+    result.addListener(function(itemList, changes){
+      changes.insertions.forEach((index) => { 
+        let item = itemList[index]; 
+        if(item._id == global.user.id) props.navigation.navigate('DrawerNavigationRoutes'); 
+      });
+    });  
+  }
+
+ 
 
   return (
     <View style={styles.mainBody}>  

@@ -48,7 +48,7 @@ exports.Connection = {
         "_id":{ "type": "objectId", "indexed": true }, 
         "_partition":{ "type": "string", "indexed": true }, 
         "friendUid":{ "type": "string", "indexed": true }, 
-        "status":{ "type": "string", "indexed": true }, 
+        "active":{ "type": "bool", "indexed": true }, 
         "createdAt": {  "type": "date" , "optional": true , "indexed": true }
     }
 }; 

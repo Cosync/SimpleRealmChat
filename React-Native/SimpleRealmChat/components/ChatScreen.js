@@ -9,7 +9,7 @@ import Configure from '../config/Config';
 import * as RealmLib from '../libs/RealmLib'; 
 let chatPartition;
 
-const ChatScreen = () => { 
+const ChatScreen = props => {
 
   global.currentScreenIndex = 'ChatScreen';
   global.user = global.user ? global.user : {};
@@ -18,7 +18,10 @@ const ChatScreen = () => {
    
 
   useEffect(() => {
-
+    if(!global.userProfile || !global.currentProfile || !global.currentProfile._id){
+      props.navigation.navigate('ConnectionScreen');
+      return;
+    }
 
     openRealm();
 
@@ -36,10 +39,10 @@ const ChatScreen = () => {
         
       }
       
-      chatPartition = global.userProfile._id + "_" + global.currentProfile._id;
+      chatPartition = global.user.id + "_" + global.currentProfile._id;
 
-      if (global.userProfile._id > global.currentProfile._id) {
-          chatPartition = global.currentProfile._id + "_" + global.userProfile._id;
+      if (global.user.id > global.currentProfile._id) {
+          chatPartition = global.currentProfile._id + "_" + global.user.id;
       }
 
       global.realmChat = await RealmLib.openRealmChat(chatPartition);
@@ -72,8 +75,7 @@ const ChatScreen = () => {
     
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages)); 
   
-    let item = messages[0];
-    alert(item.text)
+    let item = messages[0]; 
 
     global.realmChat.write(() => { 
       global.realmChat.create(Configure.Realm.chatEntry, 
@@ -81,7 +83,7 @@ const ChatScreen = () => {
           _id: new ObjectId(),
           _partition:  chatPartition,
           name: global.userProfile.name, 
-          uid: global.userProfile._id,
+          uid: global.user.id,
           text: item.text,  
           createdAt: new Date().toISOString()
         }); 
@@ -98,7 +100,7 @@ const ChatScreen = () => {
     // Update UI in response to inserted objects
     changes.insertions.forEach((index) => { 
       let item = itemList[index]; 
-      if(item.uid != global.userProfile._id) setMessages(previousMessages => GiftedChat.append(previousMessages, formatTextMessage(item)))
+      if(item.uid != global.user.id) setMessages(previousMessages => GiftedChat.append(previousMessages, formatTextMessage(item)))
       
     });
    
@@ -131,7 +133,7 @@ const ChatScreen = () => {
       messages={messages}
       renderUsernameOnMessage = {true}
       onSend={messages => onSend(messages)}
-      user={{ _id: global.userProfile._id}}/>
+      user={{ _id: global.user.id}}/>
   )
 }
 
