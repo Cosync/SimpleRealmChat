@@ -1,16 +1,18 @@
-import Schema from '../config/Schema';
-import Realm from "realm"; 
+ 
 import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat' 
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { ObjectId } from 'bson';
 import AsyncStorage from '@react-native-community/async-storage';
 import Configure from '../config/Config'; 
 import * as RealmLib from '../libs/RealmLib'; 
+import Loader from './Loader'; 
+
 let chatPartition, chatRealm;
 
 const ChatScreen = props => {
 
+  
   global.currentScreenIndex = 'ChatScreen';
   global.user = global.user ? global.user : {};
 
@@ -23,6 +25,7 @@ const ChatScreen = props => {
       return;
     }
 
+    
     openRealm();
 
     async function openRealm(){  
@@ -39,11 +42,8 @@ const ChatScreen = props => {
         
       }
       
-      chatPartition = global.user.id + "_" + global.currentProfile._id;
-
-      if (global.user.id > global.currentProfile._id) {
-          chatPartition = global.currentProfile._id + "_" + global.user.id;
-      }
+      chatPartition = global.user.id > global.currentProfile._id ?  global.currentProfile._id + "_" + global.user.id : global.user.id + "_" + global.currentProfile._id; 
+      //if (global.user.id > global.currentProfile._id) chatPartition = global.currentProfile._id + "_" + global.user.id;
 
       if(chatRealm) chatRealm.removeAllListeners(); 
 
@@ -60,7 +60,7 @@ const ChatScreen = props => {
 
       const results = chatRealm.objects(Configure.Realm.chatEntry); 
       results.removeListener(eventListener);
-      
+
       let chatEntryList =  results.sorted("createdAt", true); 
       results.addListener(eventListener);  
 
@@ -71,6 +71,7 @@ const ChatScreen = props => {
 
       setMessages(fetchedMessages); 
       
+     
     } 
 
   }, [])
@@ -132,13 +133,18 @@ const ChatScreen = props => {
  
 
   return (
-    
-    <GiftedChat
-      renderLoading={() =>  <ActivityIndicator size="large" color="#0000ff"  animating={true} style={styles.activityIndicator}/>}
-      messages={messages}
-      renderUsernameOnMessage = {true}
-      onSend={messages => onSend(messages)}
-      user={{ _id: global.user.id}}/>
+     
+        
+     
+        <GiftedChat
+          renderLoading={() =>  <ActivityIndicator size="large" color="#0000ff"  animating={true} style={styles.activityIndicator}/>}
+          messages={messages}
+          renderUsernameOnMessage = {true}
+          //isLoadingEarlier = {true}
+          onSend={message => onSend(message)}
+          user={{ _id: global.user.id}}/>
+
+     
   )
 }
 
@@ -150,6 +156,6 @@ const styles = StyleSheet.create({
    
   activityIndicator: {
     alignItems: 'center',
-    height: 80,
+    height: 180,
   },
 });

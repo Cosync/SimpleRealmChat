@@ -56,6 +56,9 @@ const CustomSidebarMenu = props => {
       );
     } else {
       props.navigation.toggleDrawer();
+
+       
+      
       global.currentScreenIndex = screenToNavigate;
       props.navigation.navigate(screenToNavigate);
       
