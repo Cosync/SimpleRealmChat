@@ -11,6 +11,7 @@ import * as RealmLib from '../libs/RealmLib';
 import Loader from './Loader'; 
 import ListItem from './ListItem';
 let listConnection = [];
+let userProfile, userProfileHolder;
 
 const ConnectionScreen = props => {
 
@@ -25,7 +26,7 @@ const ConnectionScreen = props => {
 
       let result = await RealmLib.openRealm();
 
-      let userProfile = await result.realm.objects(Configure.Realm.userProfile);//.filtered(`_id != '${global.user.id}'`);
+      userProfile = await result.realm.objects(Configure.Realm.userProfile);//.filtered(`_id != '${global.user.id}'`);
       let list = [];
       userProfile.forEach(element => {  
         if(element._id == global.user.id) global.userProfile = element;
@@ -38,16 +39,20 @@ const ConnectionScreen = props => {
         }
       });
 
-      let userConnections = await result.privateRealm.objects(Configure.Realm.connection);
-      
-      userConnections.forEach(conn => {  
-        if(conn._partition == global.user.id) { 
-          listConnection.push(conn);
-        }
-      });
-      
+      userProfileHolder = list;
 
       setProfileItem(list);
+
+      listConnection = await result.privateRealm.objects(Configure.Realm.connection);
+      
+      // allConns.forEach(conn => {  
+      //   if(conn._partition == global.user.id) { 
+      //     listConnection.push(conn);
+      //   }
+      // });
+      
+
+     
       
       setLoading(false);  
     }
@@ -67,7 +72,8 @@ const ConnectionScreen = props => {
     let conn = listConnection.filter(element => element.friendUid == item._id);
     if(conn && conn.friendUid) props.navigation.navigate('ChatScreen');
     else{
-      let result = await global.user.functions.updateChatPartitions( global.user.id, item._id); 
+      await global.user.functions.updateChatPartitions( global.user.id, item._id); 
+
       global.privateRealm.write(() => { 
         let conn = { 
           _id: new ObjectId(),
@@ -79,10 +85,24 @@ const ConnectionScreen = props => {
         listConnection.push(conn);
         global.privateRealm.create(Configure.Realm.connection, conn); 
       }); 
-      setLoading(false);  
+
+      setLoading(false); 
+
       props.navigation.navigate('ChatScreen');
     }
     
+  }
+  
+
+  const filterConnection = async (value) => {
+    const newData = userProfileHolder.filter(item => { 
+
+      const itemData = item.name.toUpperCase(); 
+      const textData = value.toUpperCase(); 
+      return itemData.indexOf(textData) > -1;    
+    });
+    
+    setProfileItem(newData);  
   }
  
 
@@ -99,7 +119,7 @@ const ConnectionScreen = props => {
         
               <TextInput
                       style={styles.inputStyle}
-                      //onChangeText={UserEmail => setUserEmail(UserEmail)} 
+                      onChangeText={value => filterConnection(value)} 
                       placeholder="Search" 
                       autoCapitalize="none" 
                       returnKeyType="done"  
