@@ -1,31 +1,27 @@
-////////////////////////////////////////////////////////////////////////////
 //
-// Copyright 2020 Cosync, Inc. All Rights Reserved.
-// For questions about this license, you may write to mailto:info@cosync.io
+//  RealmLib.js
+//  SimpleRealmChat
 //
-//This program is free software: you can redistribute it and/or modify
-//it under the terms of the GNU General Public License as published by
-//the Cosync, Inc., either version 3 of the License, or
-//(at your option) any later version.
+//  Licensed to the Apache Software Foundation (ASF) under one
+//  or more contributor license agreements.  See the NOTICE file
+//  distributed with this work for additional information
+//  regarding copyright ownership.  The ASF licenses this file
+//  to you under the Apache License, Version 2.0 (the
+//  "License"); you may not use this file except in compliance
+//  with the License.  You may obtain a copy of the License at
 //
-//This program is distributed in the hope that it will be useful,
-//but WITHOUT ANY WARRANTY; without even the implied warranty of
-//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//GNU General Public License for more details.
+//     http://www.apache.org/licenses/LICENSE-2.0
 //
-//You should have received a copy of the GNU General Public License
-//along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//  Unless required by applicable law or agreed to in writing,
+//  software distributed under the License is distributed on an
+//  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+//  KIND, either express or implied.  See the License for the
+//  specific language governing permissions and limitations
+//  under the License.
 //
-////////////////////////////////////////////////////////////////////////////
-
-/**
- * © 2020, Cosync, Inc. All Rights Reserved.
- * 
- * @author Tola VOEUNG
- * 
- * @Editor Tola VOEUNG  
- * For questions about this license, you may write to mailto:info@cosync.io
-*/ 
+//  Created by Tola Voeung on 11/13/20.
+//  Copyright © 2020 cosync. All rights reserved.
+//
 import Realm from "realm"; 
 import Schema from '../config/Schema';
 import Configure from '../config/Config' 
