@@ -1,5 +1,5 @@
  
-import Realm from "realm";
+
 import React, { useState, useRef } from 'react'; 
 import {
   StyleSheet,

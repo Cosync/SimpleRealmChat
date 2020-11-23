@@ -66,12 +66,23 @@ const ConnectionScreen = props => {
    
 
   const profileClicked = async (item) => {
+
+    
     setLoading(true);  
     global.currentProfile = item;
 
-    let conn = listConnection.filter(element => element.friendUid == item._id);
-    if(conn && conn.friendUid) props.navigation.navigate('ChatScreen');
-    else{
+    let conn; 
+    listConnection.forEach(element => { 
+      if(element.friendUid == item._id){
+        conn = element; 
+      }
+    });
+
+  
+
+    if(!conn || !conn.friendUid) {
+    
+      
       await global.user.functions.updateChatPartitions( global.user.id, item._id); 
 
       global.privateRealm.write(() => { 
@@ -86,11 +97,13 @@ const ConnectionScreen = props => {
         global.privateRealm.create(Configure.Realm.connection, conn); 
       }); 
 
-      setLoading(false); 
-
-      props.navigation.navigate('ChatScreen');
+     
+     
     }
-    
+
+    props.navigation.navigate('ChatScreen');
+
+    setLoading(false);  
   }
   
 
