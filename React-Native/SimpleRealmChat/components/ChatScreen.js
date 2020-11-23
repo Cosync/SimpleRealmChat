@@ -6,7 +6,7 @@ import { ObjectId } from 'bson';
 import AsyncStorage from '@react-native-community/async-storage';
 import Configure from '../config/Config'; 
 import * as RealmLib from '../libs/RealmLib';  
-
+import Loader from './Loader'; 
 let chatPartition, chatRealm;
 
 const ChatScreen = props => {
@@ -16,7 +16,7 @@ const ChatScreen = props => {
   global.user = global.user ? global.user : {};
 
   const [messages, setMessages] = useState([]); 
-    
+  const [loading, setLoadingMessages] = useState(false); 
 
   useEffect(() => {
    
@@ -24,15 +24,17 @@ const ChatScreen = props => {
     if(!global.userProfile || !global.currentProfile || !global.currentProfile._id){
       props.navigation.navigate('ConnectionScreen');
       return;
-    }
+    } 
+    
+    openRealm();
 
-    props.navigation.addListener('didFocus', () =>{
-      setMessages([]); 
+    props.navigation.addListener('didFocus', () =>{ // it works on the second time or when come back to this screen
+      setMessages([]);  
       openRealm();
     });
     
     async function openRealm(){  
-
+      setLoadingMessages(true);
       global.appId = Configure.Realm.appId; 
 
       if(!global.user.id){ 
@@ -48,15 +50,17 @@ const ChatScreen = props => {
       chatPartition = global.user.id > global.currentProfile._id ?  global.currentProfile._id + "_" + global.user.id : global.user.id + "_" + global.currentProfile._id; 
         
 
-      if(chatRealm){
-        chatRealm.removeAllListeners(); 
-        chatRealm.close();
+      if(global.chatRealm){
+        global.chatRealm.removeAllListeners(); 
+        global.chatRealm.close();
+        global.chatRealm = null;
       }  
 
-      chatRealm = await RealmLib.openRealmChat(chatPartition); 
-      chatRealm.removeAllListeners(); 
-
-      const results = chatRealm.objects(Configure.Realm.chatEntry); 
+      await RealmLib.openRealmChat(chatPartition); 
+      global.chatRealm.removeAllListeners(); 
+     
+     
+      const results = global.chatRealm.objects(Configure.Realm.chatEntry); 
       results.removeListener(eventListener);
 
       let chatEntryList =  results.sorted("createdAt", true); 
@@ -68,7 +72,7 @@ const ChatScreen = props => {
       });
       
       setMessages(fetchedMessages); 
-      
+      setLoadingMessages(false);
      
     } 
 
@@ -80,8 +84,8 @@ const ChatScreen = props => {
   
     let item = messages[0]; 
 
-    chatRealm.write(() => { 
-      chatRealm.create(Configure.Realm.chatEntry, 
+    global.chatRealm.write(() => { 
+      global.chatRealm.create(Configure.Realm.chatEntry, 
         { 
           _id: new ObjectId(),
           _partition:  chatPartition,
@@ -132,17 +136,19 @@ const ChatScreen = props => {
 
   return (
      
-        
+    <View style={{ flex: 1 }}>
+
+      <Loader loading={loading} />
      
         <GiftedChat
-          renderLoading={() =>  <ActivityIndicator size="large" color="#0000ff"  animating={true} style={styles.activityIndicator}/>}
+          //renderLoading={() =>  <ActivityIndicator size="large" color="#0000ff"  animating={true} style={styles.activityIndicator}/>}
           messages={messages}
           //renderUsernameOnMessage = {true}
-          //isLoadingEarlier = {loading}
+          //isLoadingEarlier = {true}
           onSend={message => onSend(message)}
           user={{ _id: global.user.id}}/>
        
-     
+       </View>
   )
 }
 

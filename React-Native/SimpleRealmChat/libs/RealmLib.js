@@ -141,6 +141,7 @@ export const openRealmChat = (chatPartition) => {
     try {
 
       Realm.open(config).then(realm => { 
+        global.chatRealm = realm;
         resolve(realm); 
       }).catch(err => {
         reject(err);

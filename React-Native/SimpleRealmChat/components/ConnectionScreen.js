@@ -21,9 +21,16 @@ const ConnectionScreen = props => {
   
   React.useEffect(() => {
 
+    props.navigation.addListener('didFocus', () =>{
+      
+      fetchData();
+    });
+    
+    
    
     async function fetchData(){
 
+      setLoading(true);  
       let result = await RealmLib.openRealm();
 
       userProfile = await result.realm.objects(Configure.Realm.userProfile);//.filtered(`_id != '${global.user.id}'`);
@@ -49,15 +56,12 @@ const ConnectionScreen = props => {
         if(conn._partition == global.user.id) { 
           listConnection.push(conn);
         }
-      });
-      
-
-     
+      }); 
       
       setLoading(false);  
     }
     
-    setLoading(true);  
+    
     fetchData();
 
   }, [])
