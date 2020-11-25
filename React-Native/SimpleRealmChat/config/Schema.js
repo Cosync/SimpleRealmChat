@@ -44,8 +44,8 @@ exports.UserProfile = {
     "properties": {
         "_id": { "type": "string", "indexed": true }, 
         "_partition": { "type": "string", "indexed": true }, 
-        "name":{ "type": "string", "indexed": true }, 
-        "createdAt": {  "type": "date" , "optional": true , "indexed": true }
+        "name":{ "type": "string", "indexed": true }
+        
     }
 }; 
 
@@ -58,8 +58,7 @@ exports.UserPrivateData = {
         "_id":{ "type": "string", "indexed": true }, 
         "_partition": { "type": "string", "indexed": true }, 
         "email":{ "type": "string", "indexed": true }, 
-        "name":{ "type": "string", "indexed": true }, 
-        "createdAt": {  "type": "date" , "optional": true , "indexed": true }
+        "name":{ "type": "string", "indexed": true }
     }
 }; 
 
@@ -71,8 +70,7 @@ exports.Connection = {
         "_id":{ "type": "objectId", "indexed": true }, 
         "_partition":{ "type": "string", "indexed": true }, 
         "friendUid":{ "type": "string", "indexed": true }, 
-        "active":{ "type": "bool", "indexed": true }, 
-        "createdAt": {  "type": "date" , "optional": true , "indexed": true }
+        "active":{ "type": "bool", "indexed": true }
     }
 }; 
 
