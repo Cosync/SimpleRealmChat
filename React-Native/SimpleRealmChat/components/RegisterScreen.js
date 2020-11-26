@@ -234,7 +234,8 @@ const Register = props => {
                 blurOnSubmit={false}
                 secureTextEntry={true}
                 ref={ref_input_pwd}
-                textContentType={'password'}
+                textContentType={'none'}
+                autoComplete= {'off'}
                 onSubmitEditing={() => Keyboard.dismiss, handleSubmitPress}
               />
             </View>

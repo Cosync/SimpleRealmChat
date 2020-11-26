@@ -138,7 +138,8 @@ const LoginScreen = props => {
                 returnKeyType="go"
                 onSubmitEditing={() => Keyboard.dismiss, handleSubmitPress}
                 blurOnSubmit={false}
-                textContentType={'password'}
+                textContentType={'none'}
+                autoComplete= {'off'}
                 secureTextEntry={true}
                 ref={ref_input_pwd}
               />
