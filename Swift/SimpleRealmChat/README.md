@@ -46,7 +46,7 @@ XCode Project
 * Download the source code from Github
 * Set up pods by typing 'pod install' at the command line
 * Open generated workspace file
-* Set the Realm id in Models.swift
+* Set the Realm id in Constants.swift
 * Copy the Realm id from the top left button in the Realm panel in the web UI
 * Edit the REALM_APP_ID in the Constants.swift function with the copied Realm Id
 
