@@ -50,7 +50,7 @@ XCode Project
 * Copy the Realm id from the top left button in the Realm panel in the web UI
 * Edit the REALM_APP_ID in the Constants.swift function with the copied Realm Id
 
-Run the app
+**Run the app**. This step is very important. If you don't do this, the MongoDB Realm application will not be initialized with the schema. And the database SimpleRealmChatDB will not be created. So run the app and create a sample user. Then quit. After you have run the app once, go into Realm and delete the signed up user.
 
 
 ## Partition Strategy
